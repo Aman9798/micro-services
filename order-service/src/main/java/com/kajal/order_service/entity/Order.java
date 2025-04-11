@@ -1,5 +1,6 @@
 package com.kajal.order_service.entity;
 
+import com.kajal.order_service.enums.OrderStatus;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "Order")
@@ -25,6 +27,9 @@ public class Order {
 
     @DBRef
     private ShippingInfo shippingInfo;
+
+    @NotNull(message = "Status is null")
+    private OrderStatus orderStatus = OrderStatus.CREATED;
 
     @NotNull(message = "Invalid Items Price")
     @DecimalMin(value = "0.0", inclusive = false, message = "Items Price > 0")
@@ -46,6 +51,9 @@ public class Order {
     @DecimalMin(value = "0.0", inclusive = false, message = "Final Price > 0")
     private double finalPrice;
 
+    @NotNull(message = "Invalid Order Date")
+    private Date placedOn = new Date();
+
     public String getId() { return id; }
 
     public String getUserId() { return userId; }
@@ -53,6 +61,8 @@ public class Order {
     public List<OrderItem> getOrderItems() { return orderItems; }
 
     public ShippingInfo getShippingInfo() { return shippingInfo; }
+
+    public OrderStatus getOrderStatus() { return orderStatus; }
 
     public double getItemsPrice() { return itemsPrice; }
 
@@ -64,11 +74,15 @@ public class Order {
 
     public double getFinalPrice() { return finalPrice; }
 
+    public Date getPlacedOn(){ return placedOn; }
+
     public void setUserId(String userId) { this.userId = userId; }
 
     public void setOrderItems(List<OrderItem> orderItems) { this.orderItems = orderItems; }
 
     public void setShippingInfo(ShippingInfo shippingInfo) { this.shippingInfo = shippingInfo; }
+
+    public void setOrderStatus(OrderStatus orderStatus) { this.orderStatus = orderStatus; }
 
     public void setItemsPrice(double itemsPrice) { this.itemsPrice = itemsPrice; }
 

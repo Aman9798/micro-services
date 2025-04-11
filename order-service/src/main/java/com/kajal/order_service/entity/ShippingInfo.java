@@ -41,14 +41,14 @@ public class ShippingInfo {
     @NotBlank
     private int phoneNumber;
 
-    public ShippingInfo(int phoneNumber, int pinCode, String country, String state, String city, String address, String userId) {
-        this.phoneNumber = phoneNumber;
-        this.pinCode = pinCode;
-        this.country = country;
-        this.state = state;
-        this.city = city;
-        this.address = address;
+    public ShippingInfo(String userId, String address, String city, String state, String country, int pinCode, int phoneNumber) {
         this.userId = userId;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.pinCode = pinCode;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getId() { return id; }
